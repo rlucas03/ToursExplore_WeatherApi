@@ -2,8 +2,11 @@
 let httpRequest = new XMLHttpRequest();
 
 // add get() function here
-function get(url) {
+function get(url, success) {
   httpRequest.open('GET', url);
+  httpRequest.onload = function () {
+    success(httpRequest.responseText);
+  };
   httpRequest.send();
 }
 
@@ -40,4 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
     'https://api.openweathermap.org/data/2.5/weather?q=los+angeles&APPID=' +
     apiKey;
   // add get() function call here
+  get(url, successHandler);
+  successHandler(httpRequest.responseText);
 });
